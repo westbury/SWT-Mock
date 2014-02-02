@@ -9,7 +9,7 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.api;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;

@@ -9,8 +9,22 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.api;
 
-public interface ITable {
+import org.eclipse.swt.widgets.Layout;
+
+public interface IComposite extends IControl {
+
+	IComposite createComposite(int style);
+
+	void setLayout(Layout layout);
+
+	ILabel createLabel(int style);
+
+	IText createText(int none);
+
+	IButton createButton(int style);
+
+	ITableViewer createTableViewer(int style);
 
 }

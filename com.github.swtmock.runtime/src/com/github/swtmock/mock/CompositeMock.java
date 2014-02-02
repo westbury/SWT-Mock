@@ -16,6 +16,12 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Layout;
 
+import com.github.swtmock.api.IButton;
+import com.github.swtmock.api.IComposite;
+import com.github.swtmock.api.ILabel;
+import com.github.swtmock.api.ITableViewer;
+import com.github.swtmock.api.IText;
+
 public class CompositeMock extends ControlMock implements IComposite {
 
 	public abstract static class ControlFinder<C> {
@@ -67,6 +73,13 @@ public class CompositeMock extends ControlMock implements IComposite {
 		LabelMock label = new LabelMock(style);
 		children.add(label);
 		return label;
+	}
+
+	@Override
+	public IText createText(int style) {
+		TextMock text = new TextMock(style);
+		children.add(text);
+		return text;
 	}
 
 	@Override

@@ -15,6 +15,8 @@ import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
+import com.github.swtmock.api.IButton;
+
 public class ButtonMock extends ControlMock implements IButton {
 
 	private String text = "";
@@ -22,7 +24,6 @@ public class ButtonMock extends ControlMock implements IButton {
 	private ListenerList listeners = new ListenerList();
 	
 	public ButtonMock(int style) {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

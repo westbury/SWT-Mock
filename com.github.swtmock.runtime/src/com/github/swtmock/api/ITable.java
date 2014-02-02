@@ -9,16 +9,8 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.api;
 
-import org.eclipse.swt.graphics.Color;
-
-public interface IControl {
-
-	void setLayoutData(Object layoutData);
-
-	Color getBackground();
-
-	void setBackground(Color background);
+public interface ITable extends IControl {
 
 }

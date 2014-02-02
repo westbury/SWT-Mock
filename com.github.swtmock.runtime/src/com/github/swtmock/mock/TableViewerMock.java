@@ -15,6 +15,10 @@ import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
+import com.github.swtmock.api.IControl;
+import com.github.swtmock.api.ITable;
+import com.github.swtmock.api.ITableViewer;
+
 public class TableViewerMock implements ITableViewer {
 
 	private TableMock table;

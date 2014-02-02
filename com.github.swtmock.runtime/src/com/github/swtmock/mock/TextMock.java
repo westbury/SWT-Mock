@@ -11,25 +11,47 @@
 
 package com.github.swtmock.mock;
 
-import com.github.swtmock.api.ILabel;
+import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.widgets.Event;
+
+import com.github.swtmock.api.IText;
 
 
-public class LabelMock extends ControlMock implements ILabel {
+public class TextMock extends ControlMock implements IText {
 
 	private String text = "";
 	
-	public LabelMock(int style) {
+	private ListenerList listenerList = new ListenerList();
+	
+	public TextMock(int style) {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void setText(String text) {
 		this.text = text;
+		
+		ModifyEvent event = new ModifyEvent(new Event()); 
+		for (Object listener : listenerList.getListeners()) {
+			((ModifyListener)listener).modifyText(event);
+		}
 	}
 
 	@Override
 	public String getText() {
 		return text;
+	}
+
+	@Override
+	public void addModifyListener(ModifyListener listener) {
+		listenerList.add(listener);
+	}
+
+	@Override
+	public void removeModifyListener(ModifyListener listener) {
+		listenerList.remove(listener);
 	}
 
 }

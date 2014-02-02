@@ -9,12 +9,16 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.api;
 
-public interface ILabel {
+import org.eclipse.swt.events.SelectionListener;
+
+public interface IButton extends IControl {
+
+	String getText();
 
 	void setText(String text);
 
-	String getText();
+	void addSelectionListener(SelectionListener listener);
 
 }

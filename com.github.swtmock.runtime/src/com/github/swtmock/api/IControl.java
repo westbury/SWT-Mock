@@ -9,16 +9,18 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.api;
 
-import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 
-public interface IButton {
+public interface IControl {
 
-	String getText();
+	void setLayoutData(Object layoutData);
 
-	void setText(String text);
+	Color getBackground();
 
-	void addSelectionListener(SelectionListener listener);
+	void setBackground(Color background);
+
+	void dispose();
 
 }

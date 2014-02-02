@@ -11,10 +11,17 @@
 
 package com.github.swtmock.mock;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+
+import com.github.swtmock.api.IControl;
 
 public class ControlMock implements IControl {
 
+	int style;
+	
+	private boolean isDisposed = false;
+	
 	private Color background;
 
 	@Override
@@ -30,8 +37,19 @@ public class ControlMock implements IControl {
 
 	@Override
 	public void setBackground(Color background) {
+		checkWidget ();
 		this.background = background;
 	}
 
+	@Override
+	public void dispose() {
+		isDisposed = true;
+	}
+
+	private void checkWidget() {
+		if (isDisposed) {
+			SWT.error(SWT.ERROR_WIDGET_DISPOSED);
+		}
+	}
 
 }

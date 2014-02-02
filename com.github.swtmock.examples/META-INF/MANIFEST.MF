@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Examples
+Bundle-SymbolicName: com.github.swtmock.examples
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: SWT-Mock team
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: com.github.swtmock;bundle-version="0.1.0",
+ org.eclipse.jface
