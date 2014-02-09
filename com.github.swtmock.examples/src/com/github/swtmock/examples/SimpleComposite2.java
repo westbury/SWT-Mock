@@ -17,18 +17,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
-import com.github.swtmock.api.CompositeImpl;
 import com.github.swtmock.api.IButton;
 import com.github.swtmock.api.IComposite;
 import com.github.swtmock.api.ILabel;
 import com.github.swtmock.api.ITableViewer;
 import com.github.swtmock.api.IText;
 
-public class SimpleComposite extends CompositeImpl {
+public class SimpleComposite2 {
 
-	public SimpleComposite(IComposite parent, int style) {
-		super(parent, style);
-
+	public SimpleComposite2(IComposite composite) {
 		ILabel label1 = composite.createLabel(SWT.NONE);
 		label1.setText("Field 1:");
 		IText text1 = composite.createText(SWT.NONE);
@@ -43,9 +40,6 @@ public class SimpleComposite extends CompositeImpl {
 		IButton action2 = composite.createButton(SWT.PUSH);
 		action2.setText("Lettered");
 		
-		ILabel labelForTable = composite.createLabel(SWT.NONE);
-		labelForTable.setText("Values:");
-
 		final ITableViewer viewer = composite.createTableViewer(SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		
 		viewer.setContentProvider(new MyContentProviderWrapper(ArrayContentProvider.getInstance()));

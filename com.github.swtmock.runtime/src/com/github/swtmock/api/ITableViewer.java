@@ -12,22 +12,12 @@
 package com.github.swtmock.api;
 
 import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.IContentProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
 
-public interface ITableViewer {
+public interface ITableViewer extends IViewer {
 
 	void setLabelProvider(IBaseLabelProvider labelProvider);
 
-	void setContentProvider(IContentProvider contentProvider);
-
-	IControl getControl();
-
-	void setInput(Object input);
-
-	IStructuredSelection getSelection();
-
-	void setSelection(IStructuredSelection selection);
+	void setContentProvider(IMockableStructuredContentProvider contentProvider);
 
 	void update(Object[] elements, String[] properties);
 

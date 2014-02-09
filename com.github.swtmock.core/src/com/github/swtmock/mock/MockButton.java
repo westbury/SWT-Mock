@@ -11,15 +11,23 @@
 
 package com.github.swtmock.mock;
 
-import com.github.swtmock.api.ILabel;
+import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.swt.events.SelectionListener;
 
+import com.github.swtmock.api.IButton;
 
-public class LabelMock extends ControlMock implements ILabel {
+public class MockButton extends MockControl implements IButton {
 
 	private String text = "";
 	
-	public LabelMock(int style) {
-		// TODO Auto-generated constructor stub
+	private ListenerList listeners = new ListenerList();
+	
+	public MockButton(int style) {
+	}
+
+	@Override
+	public String getText() {
+		return text;
 	}
 
 	@Override
@@ -28,8 +36,19 @@ public class LabelMock extends ControlMock implements ILabel {
 	}
 
 	@Override
-	public String getText() {
-		return text;
+	public void addSelectionListener(SelectionListener listener) {
+		listeners.add(listener);
+	}
+
+	@Override
+	public void removeSelectionListener(SelectionListener listener) {
+		listeners.remove(listener);
+	}
+
+	public void click() {
+		for (Object listener : listeners.getListeners()) {
+			((SelectionListener)listener).widgetSelected(null);
+		}
 	}
 
 }

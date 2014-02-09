@@ -11,23 +11,16 @@
 
 package com.github.swtmock.api;
 
-import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.events.SelectionListener;
 
-public interface IComposite extends IControl {
+public interface ITabFolder extends IControl {
 
-	IComposite createComposite(int style);
+	ITabItem createTabItem(int style);
+	
+	ITabItem createTabItem(int style, int index);
+	
+	void addSelectionListener(SelectionListener listener);
 
-	void setLayout(Layout layout);
+	void removeSelectionListener(SelectionListener listener);
 
-	ILabel createLabel(int style);
-
-	IText createText(int style);
-
-	IButton createButton(int style);
-
-	ITableViewer createTableViewer(int style);
-
-	ITabFolder createTabFolder(int style);
-
-	ITabFolder createCTabFolder(int style);
 }

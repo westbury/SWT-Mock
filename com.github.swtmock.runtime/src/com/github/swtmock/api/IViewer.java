@@ -11,23 +11,16 @@
 
 package com.github.swtmock.api;
 
-import org.eclipse.swt.widgets.Layout;
+import org.eclipse.jface.viewers.IStructuredSelection;
 
-public interface IComposite extends IControl {
+public interface IViewer {
 
-	IComposite createComposite(int style);
+	IControl getControl();
 
-	void setLayout(Layout layout);
+	void setInput(Object input);
 
-	ILabel createLabel(int style);
+	IStructuredSelection getSelection();
 
-	IText createText(int style);
+	void setSelection(IStructuredSelection selection);
 
-	IButton createButton(int style);
-
-	ITableViewer createTableViewer(int style);
-
-	ITabFolder createTabFolder(int style);
-
-	ITabFolder createCTabFolder(int style);
 }

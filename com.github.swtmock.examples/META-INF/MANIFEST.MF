@@ -5,5 +5,7 @@ Bundle-SymbolicName: com.github.swtmock.examples
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: SWT-Mock team
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: com.github.swtmock;bundle-version="0.1.0",
- org.eclipse.jface
+Require-Bundle: com.github.swtmock.core,
+ com.github.swtmock.runtime,
+ org.eclipse.jface,
+ org.junit;bundle-version="4.11.0"

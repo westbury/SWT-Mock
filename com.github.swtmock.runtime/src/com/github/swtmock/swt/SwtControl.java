@@ -9,47 +9,44 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.swt;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Control;
 
 import com.github.swtmock.api.IControl;
 
-public class ControlMock implements IControl {
+public class SwtControl implements IControl {
 
-	int style;
+	private Control control;
 	
-	private boolean isDisposed = false;
-	
-	private Color background;
+	public SwtControl(Control control) {
+		this.control = control;
+	}
+
+	@Override
+	public int getStyle() {
+		return control.getStyle();
+	}
 
 	@Override
 	public void setLayoutData(Object layoutData) {
-		// TODO Auto-generated method stub
+		control.setLayoutData(layoutData);
+	}
 
+	@Override
+	public void setBackground(Color color) {
+		control.setBackground(color);
 	}
 
 	@Override
 	public Color getBackground() {
-		return background;
-	}
-
-	@Override
-	public void setBackground(Color background) {
-		checkWidget ();
-		this.background = background;
+		return control.getBackground();
 	}
 
 	@Override
 	public void dispose() {
-		isDisposed = true;
-	}
-
-	private void checkWidget() {
-		if (isDisposed) {
-			SWT.error(SWT.ERROR_WIDGET_DISPOSED);
-		}
+		control.dispose();
 	}
 
 }

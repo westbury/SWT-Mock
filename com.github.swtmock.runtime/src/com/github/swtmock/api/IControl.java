@@ -15,6 +15,8 @@ import org.eclipse.swt.graphics.Color;
 
 public interface IControl {
 
+	int getStyle();
+
 	void setLayoutData(Object layoutData);
 
 	Color getBackground();

@@ -9,25 +9,20 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.api;
+package com.github.swtmock.finders;
 
-import org.eclipse.swt.widgets.Layout;
+import com.github.swtmock.mock.MockControl;
 
-public interface IComposite extends IControl {
+public class WidgetOfType implements IMatcher<MockControl> {
 
-	IComposite createComposite(int style);
+	private Class<? extends MockControl> classOfControl;
+	
+	public WidgetOfType(Class<? extends MockControl> classOfControl) {
+		this.classOfControl = classOfControl;
+	}
 
-	void setLayout(Layout layout);
+	public boolean matches(MockControl control) {
+		return classOfControl.isAssignableFrom(control.getClass());
+	}
 
-	ILabel createLabel(int style);
-
-	IText createText(int style);
-
-	IButton createButton(int style);
-
-	ITableViewer createTableViewer(int style);
-
-	ITabFolder createTabFolder(int style);
-
-	ITabFolder createCTabFolder(int style);
 }

@@ -9,18 +9,19 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.api;
 
-import org.eclipse.core.runtime.ListenerList;
 
-import com.github.swtmock.api.ITable;
+public interface ITabItem {
 
-public class TableMock extends ControlMock implements ITable {
+	IControl getControl();
 
-	private ListenerList listeners = new ListenerList();
+	void setControl(IControl topControl);
+
+	String getText();
+
+	void setText(String text);
 	
-	public TableMock(int style) {
-		// TODO Auto-generated constructor stub
-	}
+	void dispose();
 
 }

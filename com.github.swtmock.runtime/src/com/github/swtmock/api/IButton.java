@@ -21,4 +21,6 @@ public interface IButton extends IControl {
 
 	void addSelectionListener(SelectionListener listener);
 
+	void removeSelectionListener(SelectionListener listener);
+
 }

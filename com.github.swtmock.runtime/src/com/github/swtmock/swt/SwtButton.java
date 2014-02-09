@@ -9,43 +9,40 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.mock;
+package com.github.swtmock.swt;
 
-import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.Button;
 
 import com.github.swtmock.api.IButton;
 
-public class ButtonMock extends ControlMock implements IButton {
+public class SwtButton extends SwtControl implements IButton {
 
-	private String text = "";
+	private Button button;
 	
-	private ListenerList listeners = new ListenerList();
-	
-	public ButtonMock(int style) {
-	}
-
-	@Override
-	public String getText() {
-		return text;
+	public SwtButton(Button button) {
+		super(button);
+		this.button = button;
 	}
 
 	@Override
 	public void setText(String text) {
-		this.text = text;
+		button.setText(text);
+	}
+
+	@Override
+	public String getText() {
+		return button.getText();
 	}
 
 	@Override
 	public void addSelectionListener(SelectionListener listener) {
-		listeners.add(listener);
+		button.addSelectionListener(listener);
 	}
 
-	public void click() {
-		SelectionEvent event = new SelectionEvent(null);
-		for (Object listener : listeners.getListeners()) {
-			((SelectionListener)listener).widgetSelected(event);
-		}
+	@Override
+	public void removeSelectionListener(SelectionListener listener) {
+		button.removeSelectionListener(listener);
 	}
 
 }

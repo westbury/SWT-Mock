@@ -9,25 +9,17 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.api;
+package com.github.swtmock.finders;
 
-import org.eclipse.swt.widgets.Layout;
 
-public interface IComposite extends IControl {
-
-	IComposite createComposite(int style);
-
-	void setLayout(Layout layout);
-
-	ILabel createLabel(int style);
-
-	IText createText(int style);
-
-	IButton createButton(int style);
-
-	ITableViewer createTableViewer(int style);
-
-	ITabFolder createTabFolder(int style);
-
-	ITabFolder createCTabFolder(int style);
+/**
+ * 
+ * @author Nigel Westbury
+ *
+ * @param <T> type of widget being visited, typically ControlMock but
+ * 		may be items that are not of type Control such as TabItem.
+ * 		
+ */
+public interface IWidgetVisitor<T> {
+	boolean visit(T widget);
 }

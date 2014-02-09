@@ -11,23 +11,15 @@
 
 package com.github.swtmock.api;
 
-import org.eclipse.swt.widgets.Layout;
-
-public interface IComposite extends IControl {
-
-	IComposite createComposite(int style);
-
-	void setLayout(Layout layout);
-
-	ILabel createLabel(int style);
-
-	IText createText(int style);
-
-	IButton createButton(int style);
-
-	ITableViewer createTableViewer(int style);
-
-	ITabFolder createTabFolder(int style);
-
-	ITabFolder createCTabFolder(int style);
+public interface IMockableStructuredContentProvider extends IMockableContentProvider {
+    /**
+     * Returns the elements to display in the viewer 
+     * when its input is set to the given element. 
+     * These elements can be presented as rows in a table, items in a list, etc.
+     * The result is not modified by the viewer.
+     * 
+     * @param inputElement the input element
+     * @return the array of elements to display in the viewer
+     */
+    public Object[] getElements(Object inputElement);
 }

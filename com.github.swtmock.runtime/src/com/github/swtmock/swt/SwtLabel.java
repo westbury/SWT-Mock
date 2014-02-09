@@ -9,25 +9,29 @@
  *     Nigel Westbury - initial API and implementation
  *******************************************************************************/
 
-package com.github.swtmock.api;
+package com.github.swtmock.swt;
 
-import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.widgets.Label;
 
-public interface IComposite extends IControl {
+import com.github.swtmock.api.ILabel;
 
-	IComposite createComposite(int style);
+public class SwtLabel extends SwtControl implements ILabel {
 
-	void setLayout(Layout layout);
+	private Label label;
 
-	ILabel createLabel(int style);
+	public SwtLabel(Label label) {
+		super(label);
+		this.label = label;
+	}
 
-	IText createText(int style);
+	@Override
+	public void setText(String text) {
+		label.setText(text);
+	}
 
-	IButton createButton(int style);
+	@Override
+	public String getText() {
+		return label.getText();
+	}
 
-	ITableViewer createTableViewer(int style);
-
-	ITabFolder createTabFolder(int style);
-
-	ITabFolder createCTabFolder(int style);
 }

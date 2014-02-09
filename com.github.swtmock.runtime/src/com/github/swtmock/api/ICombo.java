@@ -11,23 +11,18 @@
 
 package com.github.swtmock.api;
 
-import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.events.ModifyListener;
 
-public interface IComposite extends IControl {
+public interface ICombo extends IControl {
 
-	IComposite createComposite(int style);
+//	void setText(String text);
+//
+//	String getText();
+//
+//	void addModifyListener(ModifyListener listener);
+//
+//	void removeModifyListener(ModifyListener listener);
+	
+	void setSelection(String text);
 
-	void setLayout(Layout layout);
-
-	ILabel createLabel(int style);
-
-	IText createText(int style);
-
-	IButton createButton(int style);
-
-	ITableViewer createTableViewer(int style);
-
-	ITabFolder createTabFolder(int style);
-
-	ITabFolder createCTabFolder(int style);
 }

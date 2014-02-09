@@ -11,32 +11,41 @@
 
 package com.github.swtmock.mock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.viewers.IBaseLabelProvider;
-import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
 
 import com.github.swtmock.api.IControl;
+import com.github.swtmock.api.IMockableStructuredContentProvider;
 import com.github.swtmock.api.ITable;
 import com.github.swtmock.api.ITableViewer;
 
-public class TableViewerMock implements ITableViewer {
+public class MockTableViewer implements ITableViewer {
 
-	private TableMock table;
+//	private Viewer realViewer;
+	private MockTable table;
+	private IBaseLabelProvider labelProvider;
+	private IMockableStructuredContentProvider contentProvider;
+	private Object input = null;
 	
-	public TableViewerMock(TableMock table) {
+	// Current set of elements as shown in table
+	private Object[] elements;
+	
+	public MockTableViewer(MockTable table) {
 		this.table = table;
 	}
 
 	@Override
 	public void setLabelProvider(IBaseLabelProvider labelProvider) {
-		// TODO Auto-generated method stub
-
+		this.labelProvider = labelProvider;
 	}
 
 	@Override
-	public void setContentProvider(IContentProvider contentProvider) {
-		// TODO Auto-generated method stub
-
+	public void setContentProvider(IMockableStructuredContentProvider contentProvider) {
+		this.contentProvider = contentProvider;
 	}
 
 	@Override
@@ -51,8 +60,19 @@ public class TableViewerMock implements ITableViewer {
 
 	@Override
 	public void setInput(Object input) {
-		// TODO Auto-generated method stub
 
+		this.contentProvider.inputChanged(this, this.input, input);
+		this.input = input;
+	
+		elements = contentProvider.getElements(input);
+		
+		List<String[]> rows = new ArrayList<String[]>();
+		for (Object element : elements) {
+			String label = ((LabelProvider)labelProvider).getText(element);
+			rows.add(new String [] { label });
+		}
+		
+		table.setRows(rows);
 	}
 
 	@Override

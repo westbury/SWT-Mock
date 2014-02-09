@@ -1,11 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SWTMock
-Bundle-SymbolicName: com.github.swtmock
+Bundle-SymbolicName: com.github.swtmock.runtime
 Bundle-Version: 0.1.0.qualifier
+Bundle-Activator: com.github.swtmock.Activator
 Bundle-Vendor: SWTMock team
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt,
  org.eclipse.jface
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
+Export-Package: com.github.swtmock.api
