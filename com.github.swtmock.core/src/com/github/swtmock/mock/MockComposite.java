@@ -17,11 +17,19 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Layout;
 
 import com.github.swtmock.api.IButton;
 import com.github.swtmock.api.IComposite;
+import com.github.swtmock.api.IDialog;
+import com.github.swtmock.api.IGC;
+import com.github.swtmock.api.IJFaceColors;
 import com.github.swtmock.api.ILabel;
+import com.github.swtmock.api.IScrolledComposite;
+import com.github.swtmock.api.IShell;
+import com.github.swtmock.api.IStyledText;
 import com.github.swtmock.api.ITabFolder;
 import com.github.swtmock.api.ITableViewer;
 import com.github.swtmock.api.IText;
@@ -34,24 +42,33 @@ import com.github.swtmock.finders.WidgetOfTypeAndMatch;
 
 public class MockComposite extends MockControl implements IComposite {
 
-	private List<MockControl> children = new ArrayList<>();
+	protected List<MockControl> children = new ArrayList<>();
 
+	private Layout layout = null;
+
+	/**
+	 * This shell that contains this composite.
+	 */
+	protected MockShell shell;
+	
 	/**
 	 * This constructor is used internally.
 	 * 
 	 * @param parent
 	 * @param style
 	 */
-	private MockComposite(MockComposite parent, int style) {
-		// TODO Auto-generated constructor stub
+	protected MockComposite(MockComposite parent, int style) {
+		super(parent, style);
+		this.shell = parent.shell;
 	}
 
 	/**
 	 * This constructor is used to create the top-level mock
 	 * composite.
 	 */
-	public MockComposite() {
-		// TODO Auto-generated constructor stub
+	public MockComposite(MockShell shell) {
+		super(null, SWT.NONE);
+		this.shell = shell;
 	}
 
 	@Override
@@ -62,28 +79,32 @@ public class MockComposite extends MockControl implements IComposite {
 	}
 
 	@Override
-	public void setLayout(Layout layout) {
-		// TODO Auto-generated method stub
+	public Layout getLayout() {
+		return layout;
+	}
 
+	@Override
+	public void setLayout(Layout layout) {
+		this.layout = layout;
 	}
 
 	@Override
 	public IButton createButton(int style) {
-		MockButton button = new MockButton(style);
+		MockButton button = new MockButton(this, style);
 		children.add(button);
 		return button;
 	}
 
 	@Override
 	public ILabel createLabel(int style) {
-		MockLabel label = new MockLabel(style);
+		MockLabel label = new MockLabel(this, style);
 		children.add(label);
 		return label;
 	}
 
 	@Override
 	public IText createText(int style) {
-		MockText text = new MockText(style);
+		MockText text = new MockText(this, style);
 		children.add(text);
 		return text;
 	}
@@ -91,7 +112,7 @@ public class MockComposite extends MockControl implements IComposite {
 	@Override
 	public ITableViewer createTableViewer(int style) {
 		// Create the table first
-		MockTable table = new MockTable(style);
+		MockTable table = new MockTable(this, style);
 		children.add(table);
 		
 		// then the viewer
@@ -101,14 +122,14 @@ public class MockComposite extends MockControl implements IComposite {
 
 	@Override
 	public ITabFolder createTabFolder(int style) {
-		MockTabFolder folder = new MockTabFolder(style, false);
+		MockTabFolder folder = new MockTabFolder(this, style, false);
 		children.add(folder);
 		return folder;
 	}
 
 	@Override
 	public ITabFolder createCTabFolder(int style) {
-		MockTabFolder folder = new MockTabFolder(style, true);
+		MockTabFolder folder = new MockTabFolder(this, style, true);
 		children.add(folder);
 		return folder;
 	}
@@ -121,6 +142,16 @@ public class MockComposite extends MockControl implements IComposite {
 	public void clickButton(final String text) {
 		button(text).click();
 	}
+
+	public void clickButton(String text,
+			IExpectedModalDialog expectedModalDialog) {
+		
+		shell.setExpectedModal(expectedModalDialog);
+		
+		button(text).click();
+		
+	}
+
 
 //	private <C extends ControlMock> C findControl(Class<C> classOfControl,
 //			ControlFinder<C> controlFinder) {
@@ -253,7 +284,7 @@ public class MockComposite extends MockControl implements IComposite {
 	 * or <code>radio</code> to find check boxes and radio buttons.
 	 * 
 	 * @param text
-	 * @return
+	 * @return the button, never null
 	 */
 	public MockButton button(final String text) {
 		MockButton foundButton = (MockButton)searchControls(new ControlFinder<MockControl>(
@@ -267,6 +298,9 @@ public class MockComposite extends MockControl implements IComposite {
 			)
 		);
 
+		if (foundButton == null) {
+			throw new ButtonNotFoundException(text, SWT.PUSH, this);
+		}
 		return foundButton;
 	}
 
@@ -317,7 +351,7 @@ public class MockComposite extends MockControl implements IComposite {
 //		return new TextMock(foundText);
 //	}
 
-	private MockControl searchControls(IWidgetVisitor<MockControl> visitor) {
+	MockControl searchControls(IWidgetVisitor<MockControl> visitor) {
 		return visitControls(visitor);
 	}
 
@@ -464,4 +498,84 @@ public class MockComposite extends MockControl implements IComposite {
 		}
 	}
 
+	@Override
+	public IStyledText createStyledText(int style) {
+		MockStyledText styledText = new MockStyledText(this, style);
+		children.add(styledText);
+		return styledText;
+	}
+
+	@Override
+	public IScrolledComposite createScrolledComposite(int style) {
+		MockScrolledComposite scrolledComposite = new MockScrolledComposite(this, style);
+		children.add(scrolledComposite);
+		return scrolledComposite;
+	}
+
+	@Override
+	public IGC createGC() {
+		return new MockGC();
+	}
+
+	@Override
+	public int openTrayDialog(IDialog dialog) {
+		/*
+		 * A modal dialog is being opened.  This dialog must be processed and
+		 * closed before this method returns.  To do this, we must be expecting
+		 * a modal dialog and we must know how to manipulate the modal dialog.
+		 */
+		IExpectedModalDialog expected = shell.popExpectedModal();
+		
+		MockShell dialogShell = new MockShell(shell);
+		MockTrayDialog modalDialog = new MockTrayDialog(dialogShell, dialog);
+		dialog.setDelegateDialog(modalDialog);
+		
+		dialog.createDialogArea(dialogShell);
+		dialog.createButtonsForButtonBar(dialogShell);
+		
+		expected.performModalActions(dialogShell);
+		
+		// fail the test if the shell is not closed
+		if (!dialogShell.isClosed()) {
+			throw new RuntimeException("Modal dialog was not closed");
+		}
+		
+		return modalDialog.getReturnCode();
+	}
+
+	@Override
+	public Rectangle getClientArea() {
+		// TODO Auto-generated method stub
+		return new Rectangle(0, 0, 200, 200);
+	}
+
+	@Override
+	public Point computeSize(int width, int height) {
+		// TODO Auto-generated method stub
+		return new Point(300, 300);
+	}
+
+	@Override
+	public void layout(boolean changed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IShell getShell() {
+		return shell;
+	}
+
+	@Override
+	public void dispose() {
+		for (MockControl child : children) {
+			child.dispose();
+		}
+		super.dispose();
+	}
+
+	@Override
+	public IJFaceColors getJFaceColors() {
+		return new MockJFaceColors();
+	}
 }

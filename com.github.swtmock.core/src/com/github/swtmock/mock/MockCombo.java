@@ -12,9 +12,6 @@
 package com.github.swtmock.mock;
 
 import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.widgets.Event;
 
 import com.github.swtmock.api.ICombo;
 
@@ -25,8 +22,8 @@ public class MockCombo extends MockControl implements ICombo {
 	
 	private ListenerList listenerList = new ListenerList();
 	
-	public MockCombo(int style) {
-		// TODO Auto-generated constructor stub
+	public MockCombo(MockComposite parent, int style) {
+		super(parent, style);
 	}
 
 //	@Override

@@ -71,13 +71,4 @@ public class SimpleComposite2Test {
 		composite.clickButton("Numbered");
 	}
 
-	/**
-	 * Test method for {@link com.github.swtmock.api.CompositeImpl#setLayoutData(java.lang.Object)}.
-	 */
-	@Test
-	public void testSetLayoutData() throws Exception {
-		// TODO
-		throw new RuntimeException("not yet implemented");
-	}
-
 }

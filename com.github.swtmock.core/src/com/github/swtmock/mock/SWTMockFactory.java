@@ -24,7 +24,8 @@ public class SWTMockFactory {
 	 * @return
 	 */
 	public static MockComposite createComposite() {
-		return new MockComposite();
+		
+		return new MockShell(null);
 	}
 
 }

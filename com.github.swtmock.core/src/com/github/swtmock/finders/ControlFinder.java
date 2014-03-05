@@ -11,7 +11,6 @@
 
 package com.github.swtmock.finders;
 
-import com.github.swtmock.mock.MockControl;
 
 /**
  * A control visitor that looks for a control.

@@ -16,6 +16,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 
 import com.github.swtmock.api.CompositeImpl;
 import com.github.swtmock.api.IButton;
@@ -29,6 +31,8 @@ public class SimpleComposite extends CompositeImpl {
 	public SimpleComposite(IComposite parent, int style) {
 		super(parent, style);
 
+		composite.setLayout(new GridLayout(2, false));
+		
 		ILabel label1 = composite.createLabel(SWT.NONE);
 		label1.setText("Field 1:");
 		IText text1 = composite.createText(SWT.NONE);
@@ -47,7 +51,7 @@ public class SimpleComposite extends CompositeImpl {
 		labelForTable.setText("Values:");
 
 		final ITableViewer viewer = composite.createTableViewer(SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-		
+		viewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		viewer.setContentProvider(new MyContentProviderWrapper(ArrayContentProvider.getInstance()));
 		viewer.setLabelProvider(new LabelProvider());
 

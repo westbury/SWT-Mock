@@ -12,6 +12,8 @@
 package com.github.swtmock.api;
 
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Font;
 
 public interface IText extends IControl {
 
@@ -22,4 +24,9 @@ public interface IText extends IControl {
 	void addModifyListener(ModifyListener listener);
 
 	void removeModifyListener(ModifyListener listener);
+	
+	void setFont(Font font);
+
+	void setCursor(Cursor cursor);
+
 }

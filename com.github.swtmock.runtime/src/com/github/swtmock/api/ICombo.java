@@ -11,7 +11,6 @@
 
 package com.github.swtmock.api;
 
-import org.eclipse.swt.events.ModifyListener;
 
 public interface ICombo extends IControl {
 

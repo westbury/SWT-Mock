@@ -24,8 +24,8 @@ public class MockTable extends MockControl implements ITable {
 	
 	private List<String[]> rows = new ArrayList<String[]>();
 	
-	public MockTable(int style) {
-		// TODO Auto-generated constructor stub
+	public MockTable(MockComposite parent, int style) {
+		super(parent, style);
 	}
 
 	/**

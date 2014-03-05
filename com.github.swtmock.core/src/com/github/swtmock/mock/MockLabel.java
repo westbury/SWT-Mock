@@ -18,8 +18,8 @@ public class MockLabel extends MockControl implements ILabel {
 
 	private String text = "";
 	
-	public MockLabel(int style) {
-		// TODO Auto-generated constructor stub
+	public MockLabel(MockComposite parent, int style) {
+		super(parent, style);
 	}
 
 	@Override

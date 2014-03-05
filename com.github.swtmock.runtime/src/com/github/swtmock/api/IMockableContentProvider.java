@@ -11,7 +11,6 @@
 
 package com.github.swtmock.api;
 
-import org.eclipse.jface.viewers.Viewer;
 
 public interface IMockableContentProvider {
     /**

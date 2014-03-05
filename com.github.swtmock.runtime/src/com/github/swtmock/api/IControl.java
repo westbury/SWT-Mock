@@ -11,18 +11,44 @@
 
 package com.github.swtmock.api;
 
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Point;
 
 public interface IControl {
 
 	int getStyle();
 
+	Object getLayoutData();
+
 	void setLayoutData(Object layoutData);
 
 	Color getBackground();
 
-	void setBackground(Color background);
+	void setBackground(Color color);
 
+	Color getForeground();
+
+	void setForeground(Color color);
+
+	Font getFont();
+
+	void setFont(Font font);
+	
+	void setSize(int width, int height);
+	
+	void setSize(Point size);
+	
+	void addControlListener(ControlListener listener);
+
+	void setFocus();
+	
 	void dispose();
 
+	boolean isDisposed();
+	
+	IShell getShell();
+
+	IDisplay getDisplay();
 }

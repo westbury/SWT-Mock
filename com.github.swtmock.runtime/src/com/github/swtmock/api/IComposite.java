@@ -11,17 +11,23 @@
 
 package com.github.swtmock.api;
 
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Layout;
 
 public interface IComposite extends IControl {
 
 	IComposite createComposite(int style);
 
+	Layout getLayout();
+
 	void setLayout(Layout layout);
 
 	ILabel createLabel(int style);
 
 	IText createText(int style);
+
+	IStyledText createStyledText(int style);
 
 	IButton createButton(int style);
 
@@ -30,4 +36,18 @@ public interface IComposite extends IControl {
 	ITabFolder createTabFolder(int style);
 
 	ITabFolder createCTabFolder(int style);
+
+	IScrolledComposite createScrolledComposite(int style);
+
+	IGC createGC();
+
+	int openTrayDialog(IDialog dialog);
+
+	Rectangle getClientArea();
+
+	Point computeSize(int width, int height);
+
+	void layout(boolean changed);
+
+	IJFaceColors getJFaceColors();
 }

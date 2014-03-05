@@ -22,7 +22,8 @@ public class MockButton extends MockControl implements IButton {
 	
 	private ListenerList listeners = new ListenerList();
 	
-	public MockButton(int style) {
+	public MockButton(MockComposite parent, int style) {
+		super(parent, style);
 	}
 
 	@Override

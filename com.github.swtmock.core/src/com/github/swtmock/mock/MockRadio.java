@@ -22,7 +22,8 @@ public class MockRadio extends MockControl implements IButton {
 	
 	private ListenerList listeners = new ListenerList();
 	
-	public MockRadio(int style) {
+	public MockRadio(MockComposite parent, int style) {
+		super(parent, style);
 	}
 
 	@Override

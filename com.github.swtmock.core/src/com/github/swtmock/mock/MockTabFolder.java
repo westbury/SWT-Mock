@@ -36,7 +36,8 @@ public class MockTabFolder extends MockControl implements ITabFolder {
 	 * @param isCustom true if this is a custom tab folder, false
 	 * 		if this is a native tab folder
 	 */
-	public MockTabFolder(int style, boolean isCustom) {
+	public MockTabFolder(MockComposite parent, int style, boolean isCustom) {
+		super(parent, style);
 	}
 
 	@Override

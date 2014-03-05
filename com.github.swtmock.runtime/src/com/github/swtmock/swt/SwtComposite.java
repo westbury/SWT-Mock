@@ -13,7 +13,12 @@ package com.github.swtmock.swt;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -23,7 +28,14 @@ import org.eclipse.swt.widgets.Text;
 
 import com.github.swtmock.api.IButton;
 import com.github.swtmock.api.IComposite;
+import com.github.swtmock.api.IDialog;
+import com.github.swtmock.api.IDisplay;
+import com.github.swtmock.api.IGC;
+import com.github.swtmock.api.IJFaceColors;
 import com.github.swtmock.api.ILabel;
+import com.github.swtmock.api.IScrolledComposite;
+import com.github.swtmock.api.IShell;
+import com.github.swtmock.api.IStyledText;
 import com.github.swtmock.api.ITabFolder;
 import com.github.swtmock.api.ITableViewer;
 import com.github.swtmock.api.IText;
@@ -101,6 +113,65 @@ public class SwtComposite extends SwtControl implements IComposite {
 	@Override
 	public ITabFolder createCTabFolder(int style) {
 		return new SwtTabFolder(new CTabFolder(composite, style));
+	}
+
+	@Override
+	public int openTrayDialog(IDialog dialog) {
+		SwtTrayDialog swtDialog = new SwtTrayDialog(composite.getShell(), dialog);
+		return swtDialog.open();
+	}
+
+	@Override
+	public IDisplay getDisplay() {
+		return new SwtDisplay(composite.getDisplay());
+	}
+
+	@Override
+	public Layout getLayout() {
+		return composite.getLayout();
+	}
+
+	@Override
+	public IStyledText createStyledText(int style) {
+		return new SwtStyledText(new StyledText(composite, style));
+	}
+
+	@Override
+	public IScrolledComposite createScrolledComposite(int style) {
+		
+		return new SwtScrolledComposite(new ScrolledComposite(composite, style));
+	}
+
+	@Override
+	public IGC createGC() {
+		GC gc = new GC(composite);
+		return new SwtGC(gc);
+	}
+
+	@Override
+	public Rectangle getClientArea() {
+		return composite.getClientArea();
+	}
+
+	@Override
+	public Point computeSize(int width, int height) {
+		return composite.computeSize(width, height);
+	}
+
+	@Override
+	public void layout(boolean changed) {
+		composite.layout(changed);
+	}
+
+	@Override
+	public IShell getShell() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IJFaceColors getJFaceColors() {
+		return new SwtJFaceColors();
 	}
 
 }

@@ -12,6 +12,7 @@
 package com.github.swtmock.swt;
 
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Text;
 
 import com.github.swtmock.api.IText;
@@ -43,6 +44,11 @@ public class SwtText extends SwtControl implements IText {
 	@Override
 	public void removeModifyListener(ModifyListener listener) {
 		text.removeModifyListener(listener);
+	}
+
+	@Override
+	public void setCursor(Cursor cursor) {
+		text.setCursor(cursor);
 	}
 
 }

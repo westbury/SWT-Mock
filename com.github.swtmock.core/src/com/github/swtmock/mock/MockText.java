@@ -14,6 +14,7 @@ package com.github.swtmock.mock;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Event;
 
 import com.github.swtmock.api.IText;
@@ -25,33 +26,43 @@ public class MockText extends MockControl implements IText {
 	
 	private ListenerList listenerList = new ListenerList();
 	
-	public MockText(int style) {
-		// TODO Auto-generated constructor stub
+	public MockText(MockComposite parent, int style) {
+		super(parent, style);
 	}
 
 	@Override
 	public void setText(String text) {
+		checkWidget();
 		this.text = text;
 		
-		ModifyEvent event = new ModifyEvent(new Event()); 
 		for (Object listener : listenerList.getListeners()) {
-			((ModifyListener)listener).modifyText(event);
+			((ModifyListener)listener).modifyText(null);
 		}
 	}
 
 	@Override
 	public String getText() {
+		checkWidget();
 		return text;
 	}
 
 	@Override
 	public void addModifyListener(ModifyListener listener) {
+		checkWidget();
 		listenerList.add(listener);
 	}
 
 	@Override
 	public void removeModifyListener(ModifyListener listener) {
+		checkWidget();
 		listenerList.remove(listener);
+	}
+
+	@Override
+	public void setCursor(Cursor cursor) {
+		checkWidget();
+
+		// TODO Auto-generated method stub
 	}
 
 }

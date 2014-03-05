@@ -21,8 +21,8 @@ import org.junit.Test;
 
 import com.github.swtmock.api.IComposite;
 import com.github.swtmock.mock.MockComposite;
-import com.github.swtmock.mock.SWTMockFactory;
 import com.github.swtmock.mock.MockTable;
+import com.github.swtmock.mock.SWTMockFactory;
 
 /**
  * @author Nigel
@@ -82,7 +82,7 @@ public class SimpleCompositeTest {
 		composite.clickButton("Lettered");
 		
 		MockTable table = composite.table("Values:");
-		Assert.assertTrue(table.containsExactly(new String [] { "value A", "value 2" }));
+		Assert.assertTrue(table.containsExactly(new String [] { "value A", "value B" }));
 	}
 
 }
