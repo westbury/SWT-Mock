@@ -10,7 +10,7 @@ Unit tests should have the following properties:
 
 4. Test failures much include messages that make clear the root cause of the problem.  If tests failures are returned from an automated build that say "timeout waiting for control with text 'foo'" when the actual problem was a prior dialog did not close then developers need to spend extra time reproducing and debugging failures.
 
-SWTBot is great for integration testing and is ok for regression testing but fails miserably at unit testing because it fails on all three of the above requirements.
+SWTBot is great for integration testing and is ok for regression testing but fails miserably at unit testing because it fails on the above requirements.
 
 SWTMock provides a solution for those who like their unit tests to be fast, reliable, and independent.  SWTMock does not use the real SWT control classes.  Mock classes are used instead.  This approach means the tests are no longer dependent on the host OS and other environmental factors that affect SWT and cause tests to be fragile.
 
