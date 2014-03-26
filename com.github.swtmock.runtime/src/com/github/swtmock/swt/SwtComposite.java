@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.Text;
 
@@ -35,6 +36,7 @@ import com.github.swtmock.api.IJFaceColors;
 import com.github.swtmock.api.ILabel;
 import com.github.swtmock.api.IScrolledComposite;
 import com.github.swtmock.api.IShell;
+import com.github.swtmock.api.ISlider;
 import com.github.swtmock.api.IStyledText;
 import com.github.swtmock.api.ITabFolder;
 import com.github.swtmock.api.ITableViewer;
@@ -172,6 +174,11 @@ public class SwtComposite extends SwtControl implements IComposite {
 	@Override
 	public IJFaceColors getJFaceColors() {
 		return new SwtJFaceColors();
+	}
+
+	@Override
+	public ISlider createSlider(int style) {
+		return  new SwtSlider(new Slider(composite, style));
 	}
 
 }

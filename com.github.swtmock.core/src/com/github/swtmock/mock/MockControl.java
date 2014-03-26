@@ -45,6 +45,8 @@ public class MockControl implements IControl {
 
 	private Point size = new Point(0, 0);
 
+	private boolean visible = true;
+	
 	private Object layoutData;
 
 	public MockControl(IComposite parent, int style) {
@@ -104,6 +106,11 @@ public class MockControl implements IControl {
 	}
 
 	@Override
+	public Point getSize() {
+		return size;
+	}
+
+	@Override
 	public void setSize(int width, int height) {
 		checkWidget();
 		size.x = width;
@@ -114,6 +121,18 @@ public class MockControl implements IControl {
 	public void setSize(Point size) {
 		checkWidget();
 		this.size = size;
+	}
+
+	@Override
+	public boolean isVisible() {
+		checkWidget();
+		return visible;
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		checkWidget();
+		this.visible = visible;
 	}
 
 	@Override

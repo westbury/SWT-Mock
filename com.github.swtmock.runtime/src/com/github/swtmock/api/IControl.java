@@ -36,9 +36,15 @@ public interface IControl {
 
 	void setFont(Font font);
 	
+	Point getSize();
+
 	void setSize(int width, int height);
 	
 	void setSize(Point size);
+	
+	boolean isVisible();
+	
+	void setVisible(boolean visible);
 	
 	void addControlListener(ControlListener listener);
 

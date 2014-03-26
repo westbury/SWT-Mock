@@ -50,4 +50,7 @@ public interface IComposite extends IControl {
 	void layout(boolean changed);
 
 	IJFaceColors getJFaceColors();
+
+	ISlider createSlider(int style);
+
 }

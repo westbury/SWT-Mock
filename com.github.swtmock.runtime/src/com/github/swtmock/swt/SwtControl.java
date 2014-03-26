@@ -89,6 +89,11 @@ public class SwtControl implements IControl {
 	}
 
 	@Override
+	public Point getSize() {
+		return control.getSize();
+	}
+
+	@Override
 	public void setSize(int width, int height) {
 		control.setSize(width, height);
 	}
@@ -117,6 +122,16 @@ public class SwtControl implements IControl {
 	@Override
 	public IDisplay getDisplay() {
 		return new SwtDisplay(control.getDisplay());
+	}
+
+	@Override
+	public boolean isVisible() {
+		return control.isVisible();
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		control.setVisible(visible);
 	}
 
 }

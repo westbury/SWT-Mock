@@ -29,6 +29,7 @@ import com.github.swtmock.api.IJFaceColors;
 import com.github.swtmock.api.ILabel;
 import com.github.swtmock.api.IScrolledComposite;
 import com.github.swtmock.api.IShell;
+import com.github.swtmock.api.ISlider;
 import com.github.swtmock.api.IStyledText;
 import com.github.swtmock.api.ITabFolder;
 import com.github.swtmock.api.ITableViewer;
@@ -577,5 +578,10 @@ public class MockComposite extends MockControl implements IComposite {
 	@Override
 	public IJFaceColors getJFaceColors() {
 		return new MockJFaceColors();
+	}
+
+	@Override
+	public ISlider createSlider(int style) {
+		return new MockSlider(this, style);
 	}
 }
