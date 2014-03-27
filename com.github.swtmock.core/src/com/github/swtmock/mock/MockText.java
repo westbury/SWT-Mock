@@ -12,10 +12,8 @@
 package com.github.swtmock.mock;
 
 import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.widgets.Event;
 
 import com.github.swtmock.api.IText;
 
