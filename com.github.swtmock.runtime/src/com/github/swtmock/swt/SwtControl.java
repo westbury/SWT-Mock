@@ -15,6 +15,7 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 
 import com.github.swtmock.api.IControl;
@@ -101,7 +102,36 @@ public class SwtControl implements IControl {
 	@Override
 	public void setSize(Point size) {
 		control.setSize(size);
-		
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		return control.getBounds();
+	}
+
+	@Override
+	public void setBounds(int x, int y, int width, int height) {
+		control.setBounds(x, y, width, height);
+	}
+
+	@Override
+	public Point getLocation() {
+		return control.getLocation();
+	}
+
+	@Override
+	public void setLocation(int x, int y) {
+		control.setLocation(x, y);
+	}
+
+	@Override
+	public void setLocation(Point location) {
+		control.setLocation(location);
+	}
+
+	@Override
+	public Point computeSize(int wHint, int hHint) {
+		return control.computeSize(wHint, hHint);
 	}
 
 	@Override
@@ -132,6 +162,16 @@ public class SwtControl implements IControl {
 	@Override
 	public void setVisible(boolean visible) {
 		control.setVisible(visible);
+	}
+
+	@Override
+	public void moveAbove(Control control) {
+		control.moveAbove(control);
+	}
+
+	@Override
+	public void moveBelow(Control control) {
+		control.moveBelow(control);
 	}
 
 }

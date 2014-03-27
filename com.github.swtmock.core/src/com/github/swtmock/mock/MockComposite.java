@@ -499,6 +499,22 @@ public class MockComposite extends MockControl implements IComposite {
 		}
 	}
 
+	public MockComposite composite(int index) {
+		for (MockControl child : children) {
+			if (child instanceof MockComposite) {
+				index--;
+				if (index == 0) {
+					return (MockComposite) child;
+				}
+			}
+		}
+		return null;
+	}
+
+	public List<MockControl> getChildren() {
+		return children;
+	}
+
 	@Override
 	public IStyledText createStyledText(int style) {
 		MockStyledText styledText = new MockStyledText(this, style);
@@ -551,11 +567,44 @@ public class MockComposite extends MockControl implements IComposite {
 	}
 
 	@Override
-	public Point computeSize(int width, int height) {
-		// TODO Auto-generated method stub
-		return new Point(300, 300);
+	public Point computeSize (int wHint, int hHint, boolean changed) {
+		checkWidget ();
+		Point size;
+		if (layout != null) {
+			if (wHint == SWT.DEFAULT || hHint == SWT.DEFAULT) {
+				// TODO Decide how we handle layouts
+				return new Point(300, 300);
+			} else {
+				size = new Point (wHint, hHint);
+			}
+		} else {
+			size = minimumSize (wHint, hHint, changed);
+			if (size.x == 0) size.x = DEFAULT_WIDTH;
+			if (size.y == 0) size.y = DEFAULT_HEIGHT;
+		}
+		if (wHint != SWT.DEFAULT) size.x = wHint;
+		if (hHint != SWT.DEFAULT) size.y = hHint;
+		Rectangle trim = computeTrim (0, 0, size.x, size.y);
+		return new Point (trim.width, trim.height);
 	}
 
+	Point minimumSize (int wHint, int hHint, boolean changed) {
+		Rectangle clientArea = getClientArea ();
+		int width = 0, height = 0;
+		for (MockControl child : children) {
+			Rectangle rect = child.getBounds();
+			width = Math.max (width, rect.x - clientArea.x + rect.width);
+			height = Math.max (height, rect.y - clientArea.y + rect.height);
+		}
+		return new Point (width, height);
+	}
+
+	public Rectangle computeTrim (int x, int y, int width, int height) {
+		checkWidget ();
+		int borderWidth = 5;
+		return new Rectangle (x - borderWidth, y - borderWidth, width + 2 * borderWidth, height + 2 * borderWidth);
+	}
+	
 	@Override
 	public void layout(boolean changed) {
 		// TODO Auto-generated method stub
@@ -584,4 +633,5 @@ public class MockComposite extends MockControl implements IComposite {
 	public ISlider createSlider(int style) {
 		return new MockSlider(this, style);
 	}
+
 }

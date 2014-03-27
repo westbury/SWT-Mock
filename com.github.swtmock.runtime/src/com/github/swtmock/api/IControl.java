@@ -15,6 +15,8 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Control;
 
 public interface IControl {
 
@@ -42,6 +44,16 @@ public interface IControl {
 	
 	void setSize(Point size);
 	
+	Rectangle getBounds();
+
+	void setBounds(int x, int y, int width, int height);
+
+	Point getLocation();
+	
+	void setLocation(int x, int y);
+
+	void setLocation(Point location);
+
 	boolean isVisible();
 	
 	void setVisible(boolean visible);
@@ -57,4 +69,10 @@ public interface IControl {
 	IShell getShell();
 
 	IDisplay getDisplay();
+
+	Point computeSize(int width, int height);
+
+	void moveAbove(Control control);
+
+	void moveBelow(Control control);
 }

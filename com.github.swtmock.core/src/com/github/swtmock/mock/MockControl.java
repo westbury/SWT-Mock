@@ -16,6 +16,8 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Control;
 
 import com.github.swtmock.api.IComposite;
 import com.github.swtmock.api.IControl;
@@ -31,6 +33,10 @@ import com.github.swtmock.api.IShell;
  */
 public class MockControl implements IControl {
 
+	/* Default size for widgets */
+	static final int DEFAULT_WIDTH	= 64;
+	static final int DEFAULT_HEIGHT	= 64;
+
 	IComposite parent;
 	
 	int style;
@@ -44,6 +50,8 @@ public class MockControl implements IControl {
 	private Font font = null;
 
 	private Point size = new Point(0, 0);
+
+	private Point location = new Point(0, 0);
 
 	private boolean visible = true;
 	
@@ -124,6 +132,57 @@ public class MockControl implements IControl {
 	}
 
 	@Override
+	public Rectangle getBounds() {
+		return new Rectangle(location.x, location.y, size.x, size.y);
+	}
+
+	@Override
+	public void setBounds(int x, int y, int width, int height) {
+		location.x = x;
+		location.y = y;
+		size.x = width;
+		size.y = height;
+	}
+
+	@Override
+	public Point getLocation() {
+		return location;
+	}
+
+	@Override
+	public void setLocation(int x, int y) {
+		location.x = x;
+		location.y = y;
+	}
+
+	@Override
+	public void setLocation(Point location) {
+		this.location = location;
+	}
+
+	public Point computeSize (int wHint, int hHint) {
+		return computeSize (wHint, hHint, true);
+	}
+
+	public Point computeSize (int wHint, int hHint, boolean changed) {
+		checkWidget ();
+		int width = DEFAULT_WIDTH;
+		int height = DEFAULT_HEIGHT;
+		if (wHint != SWT.DEFAULT) width = wHint;
+		if (hHint != SWT.DEFAULT) height = hHint;
+		int border = getBorderWidth ();
+		width += border * 2;
+		height += border * 2;
+		return new Point (width, height);
+	}
+
+	public int getBorderWidth () {
+		checkWidget ();
+		// Just pick a number, any will do
+		return 5;
+	}
+
+	@Override
 	public boolean isVisible() {
 		checkWidget();
 		return visible;
@@ -171,6 +230,18 @@ public class MockControl implements IControl {
 	@Override
 	public IDisplay getDisplay() {
 		return getShell().getDisplay();
+	}
+
+	@Override
+	public void moveAbove(Control control) {
+		// Implement this if you want to write a test that checks
+		// that the z-order of controls is correct.
+	}
+
+	@Override
+	public void moveBelow(Control control) {
+		// Implement this if you want to write a test that checks
+		// that the z-order of controls is correct.
 	}
 
 }

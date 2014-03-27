@@ -16,6 +16,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 
 
@@ -108,6 +109,31 @@ public class CompositeImpl implements IComposite {
 	@Override
 	public void setSize(Point size) {
 		composite.setSize(size);
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		return composite.getBounds();
+	}
+
+	@Override
+	public void setBounds(int x, int y, int width, int height) {
+		composite.setBounds(x, y, width, height);
+	}
+
+	@Override
+	public Point getLocation() {
+		return composite.getLocation();
+	}
+
+	@Override
+	public void setLocation(int x, int y) {
+		composite.setLocation(x, y);
+	}
+
+	@Override
+	public void setLocation(Point location) {
+		composite.setLocation(location);
 	}
 
 	@Override
@@ -228,5 +254,15 @@ public class CompositeImpl implements IComposite {
 	@Override
 	public ISlider createSlider(int style) {
 		return composite.createSlider(style);
+	}
+
+	@Override
+	public void moveAbove(Control control) {
+		composite.moveAbove(control);
+	}
+
+	@Override
+	public void moveBelow(Control control) {
+		composite.moveBelow(control);
 	}
 }

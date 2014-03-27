@@ -11,7 +11,6 @@
 
 package com.github.swtmock.api;
 
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Layout;
 
@@ -44,8 +43,6 @@ public interface IComposite extends IControl {
 	int openTrayDialog(IDialog dialog);
 
 	Rectangle getClientArea();
-
-	Point computeSize(int width, int height);
 
 	void layout(boolean changed);
 
