@@ -142,6 +142,11 @@ public class CompositeImpl implements IComposite {
 	}
 
 	@Override
+	public void removeControlListener(ControlListener listener) {
+		composite.removeControlListener(listener);
+	}
+
+	@Override
 	public void setFocus() {
 		composite.setFocus();
 	}
@@ -264,5 +269,25 @@ public class CompositeImpl implements IComposite {
 	@Override
 	public void moveBelow(Control control) {
 		composite.moveBelow(control);
+	}
+
+	@Override
+	public Object getData() {
+		return composite.getData();
+	}
+
+	@Override
+	public void setData(Object value) {
+		composite.setData(value);
+	}
+
+	@Override
+	public Object getData(String key) {
+		return composite.getData(key);
+	}
+
+	@Override
+	public void setData(String key, Object value) {
+		composite.setData(key, value);
 	}
 }

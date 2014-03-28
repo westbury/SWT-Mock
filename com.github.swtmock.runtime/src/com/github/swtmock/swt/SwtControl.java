@@ -140,6 +140,11 @@ public class SwtControl implements IControl {
 	}
 
 	@Override
+	public void removeControlListener(ControlListener listener) {
+		control.removeControlListener(listener);
+	}
+
+	@Override
 	public void setFocus() {
 		control.setFocus();
 	}
@@ -172,6 +177,26 @@ public class SwtControl implements IControl {
 	@Override
 	public void moveBelow(Control control) {
 		control.moveBelow(control);
+	}
+
+	@Override
+	public Object getData() {
+		return control.getData();
+	}
+
+	@Override
+	public void setData(Object value) {
+		control.setData(value);
+	}
+
+	@Override
+	public Object getData(String key) {
+		return control.getData(key);
+	}
+
+	@Override
+	public void setData(String key, Object value) {
+		control.setData(key, value);
 	}
 
 }

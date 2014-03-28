@@ -111,6 +111,13 @@ public class MockComposite extends MockControl implements IComposite {
 	}
 
 	@Override
+	public ISlider createSlider(int style) {
+		MockSlider slider = new MockSlider(this, style);
+		children.add(slider);
+		return slider;
+	}
+
+	@Override
 	public ITableViewer createTableViewer(int style) {
 		// Create the table first
 		MockTable table = new MockTable(this, style);
@@ -502,10 +509,10 @@ public class MockComposite extends MockControl implements IComposite {
 	public MockComposite composite(int index) {
 		for (MockControl child : children) {
 			if (child instanceof MockComposite) {
-				index--;
 				if (index == 0) {
 					return (MockComposite) child;
 				}
+				index--;
 			}
 		}
 		return null;
@@ -627,11 +634,6 @@ public class MockComposite extends MockControl implements IComposite {
 	@Override
 	public IJFaceColors getJFaceColors() {
 		return new MockJFaceColors();
-	}
-
-	@Override
-	public ISlider createSlider(int style) {
-		return new MockSlider(this, style);
 	}
 
 }

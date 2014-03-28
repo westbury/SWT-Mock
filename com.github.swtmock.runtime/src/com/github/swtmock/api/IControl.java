@@ -60,6 +60,8 @@ public interface IControl {
 	
 	void addControlListener(ControlListener listener);
 
+	void removeControlListener(ControlListener listener);
+
 	void setFocus();
 	
 	void dispose();
@@ -75,4 +77,12 @@ public interface IControl {
 	void moveAbove(Control control);
 
 	void moveBelow(Control control);
+
+	Object getData();
+	
+	void setData(Object value);
+		
+	Object getData(String key);
+	
+	void setData(String key, Object value);
 }

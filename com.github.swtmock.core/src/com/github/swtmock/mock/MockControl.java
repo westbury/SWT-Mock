@@ -11,6 +11,7 @@
 
 package com.github.swtmock.mock;
 
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
@@ -53,11 +54,20 @@ public class MockControl implements IControl {
 
 	private Point location = new Point(0, 0);
 
+	private ListenerList controlListeners = new ListenerList();
+
 	private boolean visible = true;
 	
 	private Object layoutData;
 
-	public MockControl(IComposite parent, int style) {
+	private Object data;
+	
+	private boolean isDataKeyed = false;
+
+	// Object can only be constructed by MockComposite.
+	// Constructing directly would not put it in the child list
+	// of the parent.
+	MockControl(IComposite parent, int style) {
 		this.parent = parent;
 		this.style = style;
 	}
@@ -123,12 +133,20 @@ public class MockControl implements IControl {
 		checkWidget();
 		size.x = width;
 		size.y = height;
+		
+		for (Object listener : controlListeners.getListeners()) {
+			((ControlListener)listener).controlResized(null);
+		}
 	}
 
 	@Override
 	public void setSize(Point size) {
 		checkWidget();
 		this.size = size;
+		
+		for (Object listener : controlListeners.getListeners()) {
+			((ControlListener)listener).controlResized(null);
+		}
 	}
 
 	@Override
@@ -142,6 +160,11 @@ public class MockControl implements IControl {
 		location.y = y;
 		size.x = width;
 		size.y = height;
+		
+		for (Object listener : controlListeners.getListeners()) {
+			((ControlListener)listener).controlMoved(null);
+			((ControlListener)listener).controlResized(null);
+		}
 	}
 
 	@Override
@@ -153,11 +176,19 @@ public class MockControl implements IControl {
 	public void setLocation(int x, int y) {
 		location.x = x;
 		location.y = y;
+		
+		for (Object listener : controlListeners.getListeners()) {
+			((ControlListener)listener).controlMoved(null);
+		}
 	}
 
 	@Override
 	public void setLocation(Point location) {
 		this.location = location;
+		
+		for (Object listener : controlListeners.getListeners()) {
+			((ControlListener)listener).controlMoved(null);
+		}
 	}
 
 	public Point computeSize (int wHint, int hHint) {
@@ -195,9 +226,13 @@ public class MockControl implements IControl {
 	}
 
 	@Override
-	public void addControlListener(ControlListener controlListener) {
-		// TODO Auto-generated method stub
-		
+	public void addControlListener(ControlListener listener) {
+		controlListeners.add(listener);
+	}
+
+	@Override
+	public void removeControlListener(ControlListener listener) {
+		controlListeners.remove(listener);
 	}
 
 	@Override
@@ -242,6 +277,77 @@ public class MockControl implements IControl {
 	public void moveBelow(Control control) {
 		// Implement this if you want to write a test that checks
 		// that the z-order of controls is correct.
+	}
+
+	public Object getData () {
+		checkWidget();
+		return isDataKeyed ? ((Object []) data) [0] : data;
+	}
+
+	public Object getData (String key) {
+		checkWidget();
+		if (key == null) SWT.error(SWT.ERROR_NULL_ARGUMENT);
+		if (isDataKeyed) {
+			Object [] table = (Object []) data;
+			for (int i=1; i<table.length; i+=2) {
+				if (key.equals (table [i])) return table [i+1];
+			}
+		}
+		return null;
+	}
+
+	public void setData (Object data) {
+		checkWidget();
+		if (isDataKeyed) {
+			((Object []) this.data) [0] = data;
+		} else {
+			this.data = data;
+		}
+	}
+	
+	public void setData (String key, Object value) {
+		checkWidget();
+		if (key == null) SWT.error(SWT.ERROR_NULL_ARGUMENT);
+		int index = 1;
+		Object [] table = null;
+		if (isDataKeyed) {
+			table = (Object []) data;
+			while (index < table.length) {
+				if (key.equals (table [index])) break;
+				index += 2;
+			}
+		}
+		if (value != null) {
+			if (isDataKeyed) {
+				if (index == table.length) {
+					Object [] newTable = new Object [table.length + 2];
+					System.arraycopy (table, 0, newTable, 0, table.length);
+					data = table = newTable;
+				}
+			} else {
+				table = new Object [3];
+				table [0] = data;
+				data = table;
+				isDataKeyed = true;
+			}
+			table [index] = key;
+			table [index + 1] = value;
+		} else {
+			if (isDataKeyed) {
+				if (index != table.length) {
+					int length = table.length - 2;
+					if (length == 1) {
+						data = table [0];
+						isDataKeyed = false;
+					} else {
+						Object [] newTable = new Object [length];
+						System.arraycopy (table, 0, newTable, 0, index);
+						System.arraycopy (table, index + 2, newTable, index, length - index);
+						data = newTable;
+					}
+				}
+			}
+		}
 	}
 
 }

@@ -20,7 +20,7 @@ public class MockButton extends MockControl implements IButton {
 
 	private String text = "";
 	
-	private ListenerList listeners = new ListenerList();
+	private ListenerList selectionListeners = new ListenerList();
 	
 	public MockButton(MockComposite parent, int style) {
 		super(parent, style);
@@ -38,16 +38,16 @@ public class MockButton extends MockControl implements IButton {
 
 	@Override
 	public void addSelectionListener(SelectionListener listener) {
-		listeners.add(listener);
+		selectionListeners.add(listener);
 	}
 
 	@Override
 	public void removeSelectionListener(SelectionListener listener) {
-		listeners.remove(listener);
+		selectionListeners.remove(listener);
 	}
 
 	public void click() {
-		for (Object listener : listeners.getListeners()) {
+		for (Object listener : selectionListeners.getListeners()) {
 			((SelectionListener)listener).widgetSelected(null);
 		}
 	}
